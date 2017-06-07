@@ -1,8 +1,8 @@
 # UC-Tuition-Costs
-#### Abstract
+#### Abstract: 
 UC Project: An Investigation into the UC system’s enrollment, tuition and spending trends over the past 10 years
 
-Analyzing: 
+###### Analyzing: 
 *	Student Enrollment 
 * Faculty- Student Ratio 
 * Budget Ratios (ie: staff salaries, event costs, campus maintenance, etc. ) 
