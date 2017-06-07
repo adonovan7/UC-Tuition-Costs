@@ -1,4 +1,4 @@
-<h1>UC-Tuition-Costs</h1>
+#UC-Tuition-Costs
 UC Project: An Investigation into the UC system’s enrollment, tuition and spending trends over the past 10 years
 
 Analyzing: 
