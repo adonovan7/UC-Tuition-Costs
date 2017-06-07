@@ -1,7 +1,15 @@
-# UC-Tuition-Costs
+<h1>UC-Tuition-Costs</h1>
 UC Project: An Investigation into the UC system’s enrollment, tuition and spending trends over the past 10 years
 
-•	Student Enrollment •	Faculty- Student Ratio •	Budget Ratios (ie: staff salaries, event costs, campus maintenance, etc. ) •	Class Sizes •	Tuition Costs •	CPI/ Inflation rates over past 10 years •	Average income of college grads over 10 years (grouped by academic fields) •	UC yearly Revenue/ assets
+
+*	Student Enrollment 
+* Faculty- Student Ratio 
+* Budget Ratios (ie: staff salaries, event costs, campus maintenance, etc. ) 
+* Class Sizes 
+* Tuition Costs 
+* CPI/ Inflation rates over past 10 years 
+* Average income of college grads over 10 years (grouped by academic fields) 
+* UC yearly Revenue/ assets
 
 Hypothesis: UC tuition costs have more quadrupled in the past 10 years, vastly exceeding inflation rates and, in some cases, surmounting the ROI completely, leading one to question whether a college degree is still worth it's price tag. This project is intended to investigate the increase in attendance cost parallel to shifts in household income (and related economic indices) as well as changing post-graduation job market over the span of the previous 10 years.
 
