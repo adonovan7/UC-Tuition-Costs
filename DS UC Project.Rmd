@@ -1,0 +1,166 @@
+---
+title: "DS UC Project"
+author: "Andie"
+date: "5/9/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Installing & loading packages:
+```{r}
+#install.packages("tidyr")
+#install.packages("sqldf")
+library(tidyr)
+library(dplyr)
+library(RColorBrewer)
+library(plotly)
+library(stringr)
+library(MASS)
+#library(sqldf)
+```
+
+
+Data Frame #1:School, Year, Degree Level, Discipline
+```{r}
+Berkeley_deg<-read.delim(file="~/Desktop/Cleaned/Berkeley_deg.csv", header=TRUE, sep=";", stringsAsFactors = T)
+Berkeley_deg$School<-as.factor("Berkeley")
+Davis_deg<-read.delim(file="~/Desktop/Cleaned/Davis_deg.csv", header=TRUE, sep=";", stringsAsFactors = T)
+Davis_deg$School<-as.factor("Davis")
+Irvine_deg<-read.delim(file="~/Desktop/Cleaned/Irvine_deg.csv", header=TRUE, sep=";", stringsAsFactors = T)
+Irvine_deg$School<-as.factor("Irvine")
+
+LA_deg<-read.delim(file="~/Desktop/Cleaned/LA_deg.csv", header=TRUE, sep=";", stringsAsFactors = T)
+LA_deg$School<-as.factor("LA")
+Riverside_deg<-read.delim(file="~/Desktop/Cleaned/Riverside_deg.csv", header=TRUE, sep=";", stringsAsFactors = T)
+Riverside_deg$School<-as.factor("Riverside")
+SDiego_deg<-read.delim(file="~/Desktop/Cleaned/SDiego_deg.csv", header=TRUE, sep=";", stringsAsFactors = T)
+SDiego_deg$School<-as.factor("SDiego")
+
+SBarbara_deg<-read.delim(file="~/Desktop/Cleaned/SBarbara_deg.csv", header=TRUE, sep=";", stringsAsFactors = T)
+SBarbara_deg$School<-as.factor("SBarbara")
+SCruz_deg<-read.delim(file="~/Desktop/Cleaned/SCruz_deg.csv", header=TRUE, sep=";", stringsAsFactors = T)
+SCruz_deg$School<-as.factor("SCruz")
+Merced_deg<-read.delim(file="~/Desktop/Cleaned/Merced_deg.csv", header=TRUE, sep=";", stringsAsFactors = T)
+Merced_deg$School<-as.factor("Merced")
+```
+
+```{r}
+#as.data.frame()
+UC_frame<-bind_rows(Berkeley_deg, Davis_deg, Irvine_deg, LA_deg, Riverside_deg, SDiego_deg, SBarbara_deg, SCruz_deg, Merced_deg)
+View(UC_frame)
+UC_frame$BroadDiscipline<- as.factor(UC_frame$BroadDiscipline)
+UC_frame$School<- as.factor(UC_frame$School)
+levels(UC_frame$BroadDiscipline)
+```
+
+Graph #1: Majors of Students at the UCs (Composite)
+```{r}
+#Majors Declared by 3rd week for past 10 years at Berkeley
+plot_ly() %>%
+  add_pie(UC_frame, labels = ~UC_frame$BroadDiscipline, values = ~UC_frame$NumOfRecords, type = 'pie') %>%
+    layout(title = 'Degrees at the UCs 2007-2015',showlegend = TRUE, 
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)) 
+```
+
+
+
+Data Frame #2: Ratio of Students to Staff
+```{r}
+  ## Ratio of Students to Staff
+SS_Ratio<-read.delim(file="~/Desktop/Cleaned/Student_Staff_Ratios.csv", header=TRUE, sep=",", stringsAsFactors = TRUE)
+#View(SS_Ratio)
+SS_Ratio$N=NULL
+View(SS_Ratio)
+colnames(SS_Ratio)<-c("Institution", "y2015", "y2014", "y2013", "y2012", "y2011", "y2010", "y2009", "y2008")
+Ratio_df<-as.data.frame(t(SS_Ratio), row.names = FALSE )
+
+#View(Ratio_df)
+Ratio_tbl<-Ratio_df[-1,] 
+Ratio_tbl<-Ratio_tbl[-9,] 
+#View(Ratio_tbl)
+Year<-c("2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008") %>% as.factor()
+Ratio_tbl$Year<-NA
+Ratio_tbl$Year<-Year
+colnames(Ratio_tbl)<-c("Berkeley", "Davis", "Irvine", "Merced", "LA", "Riverside", "SDiego", "SBarbara", "SCruz", "Year" ) 
+View(Ratio_tbl)
+```
+
+
+Graph #2: Ratios
+```{r}
+plot_ly(data=Ratio_tbl)%>%
+  add_trace(x=~Year, y =~Berkeley, type='scatter', name = 'Berkeley', mode='lines+markers', hoverinfo = "text", text = ~paste(Berkeley, ':1 Ratio')) %>%
+  add_trace(x=~Year, y =~Davis, type='scatter', name = 'Davis', mode='lines+markers', hoverinfo = "text", text = ~paste(Davis, ':1 Ratio')) %>%
+  add_trace(x=~Year, y =~Irvine, type='scatter', name = 'Irvine', mode='lines+markers', hoverinfo = "text", text = ~paste(Irvine, ':1 Ratio')) %>%
+  add_trace(x=~Year, y =~LA, type='scatter', name = 'LA', mode='lines+markers', hoverinfo = "text", text = ~paste(LA, ':1 Ratio')) %>%
+  add_trace(x=~Year, y =~Merced, type='scatter', name = 'Merced', mode='lines+markers', hoverinfo = "text", text = ~paste(Merced, ':1 Ratio')) %>%
+  add_trace(x=~Year, y =~Riverside, type='scatter', name = 'Riverside', mode='lines+markers', hoverinfo = "text", text = ~paste(Riverside, ':1 Ratio')) %>%
+  add_trace(x=~Year, y =~SBarbara, type='scatter', name = 'SBarbara', mode='lines+markers', hoverinfo = "text", text = ~paste(SBarbara, ':1 Ratio')) %>%
+  add_trace(x=~Year, y =~SDiego, type='scatter', name = 'SDiego', mode='lines+markers', hoverinfo = "text", text = ~paste(SDiego, ':1 Ratio')) %>%
+  add_trace(x=~Year, y =~SCruz, type='scatter', name = 'SCruz', mode='lines+markers', hoverinfo = "text", text = ~paste(SCruz, ':1 Ratio')) %>% 
+  layout(title = 'Ratio of Students to Staff',showlegend = TRUE, 
+             xaxis = list(title="Year", showgrid = TRUE, zeroline = FALSE, showticklabels = TRUE),
+             yaxis = list(title="Students per Staff", showgrid = TRUE, zeroline = FALSE, showticklabels = FALSE))
+```
+
+
+Data Frame #3: Census/ Income
+```{r}
+Census<-read.delim(file="~/Desktop/Cleaned/Census2.csv", header=TRUE, sep=";", stringsAsFactors = FALSE)
+colnames(Census)<-gsub("X.","", colnames(Census), fixed="TRUE")
+colnames(Census)<-gsub(".","", colnames(Census), fixed="TRUE")
+View(Census)
+```
+
+Data Frame #4: Partitioning Census into Education Level vs Income
+```{r}
+##Data frame for Education Level
+##note: bachelors = bachelors degree and up
+under_9th<-as.data.frame(Census[65,])
+some_hs<-as.data.frame(Census[66,])
+hs_grad<-as.data.frame(Census[67,])
+some_college<-as.data.frame(Census[68,])
+associates<-as.data.frame(Census[69,])
+bachelors<-as.data.frame(Census[70,])
+levels(Edu_df$Characteristic)<-c("under_9th", "some_hs", "hs_grad", "some_college", "associates", "bachelors")
+Edu_df<-bind_rows(under_9th, some_hs, hs_grad, some_college, associates, bachelors)
+
+View(Edu_df)
+```
+
+Graph#3: Income based on Education Levels
+```{r}
+plot_ly(color=~Edu_df$Characteristic) %>%
+  add_bars(Edu_df, x=~Edu_df$Characteristic, y=~Edu_df$Medianincome, marker = list(color = "blues")) %>%
+  layout(title="Income Comparison in 2016", xaxis = list(title = ""), yaxis = list(title = "Median Income" ))
+```
+
+
+```{r}
+Tuition<-read.delim(file="~/Desktop/Cleaned/UC_Tuition.csv", header=TRUE, sep=",", stringsAsFactors = F)
+View(Tuition)
+colnames(Tuition)<-gsub("Published.in.state.tuition","Tuition", colnames(Tuition), fixed="False")
+colnames(Tuition)<-gsub("Average.salary.of.full.time.instructional.faculty.total","avg_sal", colnames(Tuition), fixed="TRUE")
+Tuition_df<-select(Tuition, colnames(Tuition)=="Tuition") %>% as.data.frame()
+```
+
+```{r}
+TF<-read.delim(file="~/Desktop/Cleaned/TF.csv", header=TRUE, sep=",", stringsAsFactors = F)
+colnames(TF)<-gsub("Published.out.of.state.tuition.and.fees.","out", colnames(TF), fixed="False")
+colnames(TF)<-gsub("Published.in.state.tuition.and.fees.","in", colnames(TF), fixed="False")
+colnames(TF)<-gsub("..IC","yr", colnames(TF), fixed="False")
+colnames(TF)<-gsub("_AY.","", colnames(TF), fixed="False")
+colnames(TF)<-gsub("RV.","", colnames(TF), fixed="False")
+colnames(TF)<-gsub("Published.in.state..tuition.and.fees.","out", colnames(TF), fixed="False")
+colnames(TF)<-gsub("Published.out.of.state..tuition.and.fees.","in", colnames(TF), fixed="False")
+#print(colnames(TF))
+TF<-TF[,-22]
+View(TF)
+```
+
