@@ -15,7 +15,5 @@ UC tuition costs have more quadrupled in the past 10 years, vastly exceeding inf
 
 
 **Side Note:**
-*UC in-state tuition in 2006: $2,541 (which would be $3117.27 in today’s dollars, accounting for an averaged 1.88% inflation rate over the 10 year span) 
-
-*UC in-state tuition in 2017: $13,500
+*UC in-state tuition in 2006 was $2,541 (which would be $3117.27 in today’s dollars, accounting for an averaged 1.88% inflation rate over the 10 year span). In-state tuition as of this year (2017) was $13,500, which is about a 430% increase costs over the span of just 11 years. 
 
