@@ -2,10 +2,7 @@
 title: "UC Project"
 author: "Andie Donovan"
 date: "5/9/2017"
-output:
-  html_document: default
-  pdf_document: default
-  word_document: default
+
 ---
 ### Installing & loading packages:
 ```{r}
@@ -20,7 +17,7 @@ library(MASS)
 
 ## Data Frame #1: Year, Degree Level, Discipline, and UC School 
 ```{r}
-df<-read.delim(file="/Users/andiedonovan/myProjects/oldProjects/UC_Project-master/SchoolsMerged.csv", header=TRUE, sep=",", stringsAsFactors = T)
+df<-read.delim(file="~UC_Project/Data/SchoolsMerged.csv", header=TRUE, sep=",", stringsAsFactors = T)
 head(df)
 ```
 
@@ -42,7 +39,7 @@ plot_ly() %>%
 
 ## Data Frame #2: Ratio of Students to Staff
 ```{r}
-SS_Ratio<-read.delim(file="/Users/andiedonovan/myProjects/oldProjects/UC_Project-master/Student_Staff_Ratios.csv", header=TRUE, sep=",", stringsAsFactors = TRUE)
+SS_Ratio<-read.delim(file="~UC_Project/Data/Student_Staff_Ratios.csv", header=TRUE, sep=",", stringsAsFactors = TRUE)
 SS_Ratio = SS_Ratio[,1:9]
 colnames(SS_Ratio)<-c("Institution", "year2015", "year2014", "year2013", "year2012", "year2011", "year2010", "year2009", "year2008")
 head(SS_Ratio)
@@ -82,7 +79,7 @@ plot_ly(data=Ratio_tbl)%>%
 
 ### Data Frame #3: Census/ Income
 ```{r}
-Census<-read.delim(file="/Users/andiedonovan/myProjects/oldProjects/UC_Project-master/Census.csv", header=TRUE, sep=";", stringsAsFactors = FALSE)
+Census<-read.delim(file="~UC_Project/Data/Census.csv", header=TRUE, sep=";", stringsAsFactors = FALSE)
 colnames(Census)<-gsub("X.","", colnames(Census), fixed="TRUE")
 colnames(Census)<-gsub(".","", colnames(Census), fixed="TRUE")
 View(Census)
@@ -113,14 +110,14 @@ plot_ly(color=~Edu_df$Characteristic) %>%
 
 
 ```{r}
-Tuition<-read.delim(file="/Users/andiedonovan/myProjects/oldProjects/UC_Project-master/UC_Tuition.csv", header=TRUE, sep=",", stringsAsFactors = F)
+Tuition<-read.delim(file="~UC_Project/Data/UC_Tuition.csv", header=TRUE, sep=",", stringsAsFactors = F)
 View(Tuition)
 colnames(Tuition)<-gsub("Published.in.state.tuition","Tuition", colnames(Tuition), fixed="False")
 colnames(Tuition)<-gsub("Average.salary.of.full.time.instructional.faculty.total","avg_sal", colnames(Tuition), fixed="TRUE")
 ```
 
 ```{r}
-TF<-read.delim(file="/Users/andiedonovan/myProjects/oldProjects/UC_Project-master/TuitionFees.csv", header=TRUE, sep=",", stringsAsFactors = F)
+TF<-read.delim(file="~UC_Project/Data/TuitionFees.csv", header=TRUE, sep=",", stringsAsFactors = F)
 colnames(TF)<-gsub("Published.out.of.state.tuition.and.fees.","out", colnames(TF), fixed="False")
 colnames(TF)<-gsub("Published.in.state.tuition.and.fees.","in", colnames(TF), fixed="False")
 colnames(TF)<-gsub("..IC","yr", colnames(TF), fixed="False")
